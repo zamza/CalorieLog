@@ -1,0 +1,7 @@
+Feature Ideas -
+	*Update Page
+		- Ask user if they meant to enter extremely high 
+		- Allow user to put in an update from several hours ago
+		- Allow user to change old updates
+		- Let user put in type of food he ate.  
+			* Track calories from database

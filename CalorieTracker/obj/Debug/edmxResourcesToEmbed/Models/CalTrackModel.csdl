@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ASPNETDBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="ASPNETDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="aspnet_Users" EntityType="ASPNETDBModel.aspnet_Users" />
+    <EntitySet Name="DayReviews" EntityType="ASPNETDBModel.DayReview" />
+    <EntitySet Name="Updates" EntityType="ASPNETDBModel.Update" />
+    <AssociationSet Name="FK_DayReviews_aspnet_Users" Association="ASPNETDBModel.FK_DayReviews_aspnet_Users">
+      <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+      <End Role="DayReviews" EntitySet="DayReviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Updates_aspnet_Users" Association="ASPNETDBModel.FK_Updates_aspnet_Users">
+      <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+      <End Role="Updates" EntitySet="Updates" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="aspnet_Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+    <Property Name="UserId" Type="Guid" Nullable="false" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
+    <Property Name="LoweredUserName" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
+    <Property Name="MobileAlias" Type="String" MaxLength="16" Unicode="true" FixedLength="false" />
+    <Property Name="IsAnonymous" Type="Boolean" Nullable="false" />
+    <Property Name="LastActivityDate" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="DayReviews" Relationship="ASPNETDBModel.FK_DayReviews_aspnet_Users" FromRole="aspnet_Users" ToRole="DayReviews" />
+    <NavigationProperty Name="Updates" Relationship="ASPNETDBModel.FK_Updates_aspnet_Users" FromRole="aspnet_Users" ToRole="Updates" />
+  </EntityType>
+  <EntityType Name="DayReview">
+    <Key>
+      <PropertyRef Name="OverviewID" />
+    </Key>
+    <Property Name="OverviewID" Type="Guid" Nullable="false" />
+    <Property Name="UserId" Type="Guid" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" />
+    <Property Name="CaloriesTotal" Type="Int32" Nullable="false" />
+    <Property Name="Morning" Type="Int32" Nullable="false" />
+    <Property Name="Lunch" Type="Int32" Nullable="false" />
+    <Property Name="Afternoon" Type="Int32" Nullable="false" />
+    <Property Name="Dinner" Type="Int32" Nullable="false" />
+    <Property Name="Evening" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="aspnet_Users" Relationship="ASPNETDBModel.FK_DayReviews_aspnet_Users" FromRole="DayReviews" ToRole="aspnet_Users" />
+  </EntityType>
+  <EntityType Name="Update">
+    <Key>
+      <PropertyRef Name="UpdateID" />
+    </Key>
+    <Property Name="UpdateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Guid" />
+    <Property Name="Calories" Type="Int32" />
+    <Property Name="Date" Type="DateTime" />
+    <NavigationProperty Name="aspnet_Users" Relationship="ASPNETDBModel.FK_Updates_aspnet_Users" FromRole="Updates" ToRole="aspnet_Users" />
+  </EntityType>
+  <Association Name="FK_DayReviews_aspnet_Users">
+    <End Role="aspnet_Users" Type="ASPNETDBModel.aspnet_Users" Multiplicity="1" />
+    <End Role="DayReviews" Type="ASPNETDBModel.DayReview" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="aspnet_Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="DayReviews">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Updates_aspnet_Users">
+    <End Role="aspnet_Users" Type="ASPNETDBModel.aspnet_Users" Multiplicity="0..1" />
+    <End Role="Updates" Type="ASPNETDBModel.Update" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="aspnet_Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Updates">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

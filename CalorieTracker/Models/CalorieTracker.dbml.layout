@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="CalorieTracker">
+  <DataContextMoniker Name="/CalorieTrackerDataContext" />
+  <nestedChildShapes>
+    <classShape Id="03ef6dd7-0c5d-446b-885c-4035a9d4e8ce" absoluteBounds="1.125, 3.125, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/CalorieTrackerDataContext/Update" />
+      <nestedChildShapes>
+        <elementListCompartment Id="92cb7bd0-6c11-4508-b8a9-3e2ad1cbe12f" absoluteBounds="1.1400000000000001, 3.585, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5da9fea3-194e-4d1b-a436-8255d3787d90" absoluteBounds="8.25, 3, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/CalorieTrackerDataContext/DayReview" />
+      <nestedChildShapes>
+        <elementListCompartment Id="4c7391d9-7249-4cd3-ad94-9ef7cfb8c01a" absoluteBounds="8.265, 3.46, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="55cf5f71-5d4e-4e38-bcde-5726b92d1491" absoluteBounds="4.75, 3, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/CalorieTrackerDataContext/aspnet_User" />
+      <nestedChildShapes>
+        <elementListCompartment Id="4e3b0e94-ce42-4e85-8e78-ff1353c08b57" absoluteBounds="4.7650000000000006, 3.46, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.75 : 4.01044840494792); (3.125 : 4.01044840494792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CalorieTrackerDataContext/aspnet_User/aspnet_User_Update" />
+      <nodes>
+        <classShapeMoniker Id="55cf5f71-5d4e-4e38-bcde-5726b92d1491" />
+        <classShapeMoniker Id="03ef6dd7-0c5d-446b-885c-4035a9d4e8ce" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(6.75 : 4.07774983723958); (8.25 : 4.07774983723958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CalorieTrackerDataContext/aspnet_User/aspnet_User_DayReview" />
+      <nodes>
+        <classShapeMoniker Id="55cf5f71-5d4e-4e38-bcde-5726b92d1491" />
+        <classShapeMoniker Id="5da9fea3-194e-4d1b-a436-8255d3787d90" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

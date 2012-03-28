@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ASPNETDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="ASPNETDBModelStoreContainer">
+    <EntitySet Name="aspnet_Users" EntityType="ASPNETDBModel.Store.aspnet_Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DayReviews" EntityType="ASPNETDBModel.Store.DayReviews" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Updates" EntityType="ASPNETDBModel.Store.Updates" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_DayReviews_aspnet_Users" Association="ASPNETDBModel.Store.FK_DayReviews_aspnet_Users">
+      <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+      <End Role="DayReviews" EntitySet="DayReviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Updates_aspnet_Users" Association="ASPNETDBModel.Store.FK_Updates_aspnet_Users">
+      <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+      <End Role="Updates" EntitySet="Updates" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="aspnet_Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="256" />
+    <Property Name="LoweredUserName" Type="nvarchar" Nullable="false" MaxLength="256" />
+    <Property Name="MobileAlias" Type="nvarchar" MaxLength="16" />
+    <Property Name="IsAnonymous" Type="bit" Nullable="false" />
+    <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DayReviews">
+    <Key>
+      <PropertyRef Name="OverviewID" />
+    </Key>
+    <Property Name="OverviewID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Date" Type="date" Nullable="false" />
+    <Property Name="CaloriesTotal" Type="int" Nullable="false" />
+    <Property Name="Morning" Type="int" Nullable="false" />
+    <Property Name="Lunch" Type="int" Nullable="false" />
+    <Property Name="Afternoon" Type="int" Nullable="false" />
+    <Property Name="Dinner" Type="int" Nullable="false" />
+    <Property Name="Evening" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Updates">
+    <Key>
+      <PropertyRef Name="UpdateID" />
+    </Key>
+    <Property Name="UpdateID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="uniqueidentifier" />
+    <Property Name="Calories" Type="int" />
+    <Property Name="Date" Type="date" />
+  </EntityType>
+  <Association Name="FK_DayReviews_aspnet_Users">
+    <End Role="aspnet_Users" Type="ASPNETDBModel.Store.aspnet_Users" Multiplicity="1" />
+    <End Role="DayReviews" Type="ASPNETDBModel.Store.DayReviews" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="aspnet_Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="DayReviews">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Updates_aspnet_Users">
+    <End Role="aspnet_Users" Type="ASPNETDBModel.Store.aspnet_Users" Multiplicity="0..1" />
+    <End Role="Updates" Type="ASPNETDBModel.Store.Updates" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="aspnet_Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Updates">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

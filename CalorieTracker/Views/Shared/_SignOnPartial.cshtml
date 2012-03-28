@@ -1,0 +1,16 @@
+﻿@model CalorieTracker.Models.LogOnModel
+
+<div class="login-form">
+    @Html.ValidationSummary(true)
+    @using (Html.BeginForm())
+    {
+        @Html.TextBoxFor(m => m.UserName, new { @Placeholder = "User Name", @class = "default-value" })
+        @Html.PasswordFor(m => m.Password, new {@Placeholder = "Password", @class = "default-value" })
+
+        <input type="submit" value="Log On" /><br />
+        <div id="login-validation">
+            @Html.ValidationMessageFor(m => m.UserName)
+            @Html.ValidationMessageFor(m => m.Password)
+        </div>
+    }
+</div>

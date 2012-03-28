@@ -1,0 +1,62 @@
+﻿@model CalorieTracker.ViewModels.HourlyViewModel
+@{
+    ViewBag.Title = "HourTracker";
+}
+@section CSS
+{
+    <link href="@Url.Content("~/Content/visualize.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/visualize-light.css")" rel="stylesheet" type="text/css" />
+}
+@section Javascript
+{
+    <script src="@Url.Content("/Scripts/visualize.jQuery.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#line').hide();
+            $('#line').visualize({ type: 'line', height: '300px', width: '460px' });
+        });
+    </script>
+}
+<div id="hour-page">
+    @if (Model.CalorieAverage != 0)
+    {
+    <h1>Your Daily Breakdown</h1>
+    <p>On average, you eat @Model.CalorieAverage calories in a day</p>
+    <table id="line">
+        <caption>
+            Hourly Calorie Intake</caption>
+        <thead>
+            <tr>
+                <td>
+                </td>
+                @{var j = 0;}
+                @foreach (var tod in Model.TimeOfDay)
+                {
+                    <th scope="col">@tod
+                    </th>
+                    j++;
+                }
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">
+                    Percentage of Daily Calories Eaten
+                </th>
+                @{var k = 0;}
+                @foreach (var tod in Model.TimeOfDay)
+                {
+                    <td scope="col">@Model.TimeTotal[k]
+                    </td>
+                    k++;
+                }
+            </tr>
+        </tbody>
+    </table>
+    }
+    else
+    {
+        <h2>We don't have any daily overviews on record for you</h2>
+        <h3>Head to the updates page and enter more updates so your status gets tracked</h3>
+    }
+</div>

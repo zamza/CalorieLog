@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ASPNETDB" Class="CalorieTrackerDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\ASPNETDB.MDF;Integrated Security=True;User Instance=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ASPNETDBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Updates" Member="Updates">
+    <Type Name="Update">
+      <Column Name="UpdateID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Calories" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="Time" Type="System.DateTime" DbType="Time NOT NULL" CanBeNull="false" />
+      <Association Name="aspnet_User_Update" Member="aspnet_User" ThisKey="UserId" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DayReviews" Member="DayReviews">
+    <Type Name="DayReview">
+      <Column Name="OverviewID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="CaloriesTotal" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Morning" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Lunch" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Afternoon" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Dinner" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Evening" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Late" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="aspnet_User_DayReview" Member="aspnet_User" ThisKey="UserId" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.aspnet_Users" Member="aspnet_Users">
+    <Type Name="aspnet_User">
+      <Column Name="ApplicationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="LoweredUserName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="MobileAlias" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="IsAnonymous" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="LastActivityDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="aspnet_User_Update" Member="Updates" ThisKey="UserId" OtherKey="UserId" Type="Update" />
+      <Association Name="aspnet_User_DayReview" Member="DayReviews" ThisKey="UserId" OtherKey="UserId" Type="DayReview" />
+    </Type>
+  </Table>
+  <Function Name="dbo.up_Updates_DeleteOld" Method="up_Updates_DeleteOld">
+    <Parameter Name="UserId" Parameter="userId" Type="System.Guid" DbType="UniqueIdentifier" />
+    <Parameter Name="TheDate" Parameter="theDate" Type="System.DateTime" DbType="DateTime" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.up_Updates_RetrieveListOfDays" Method="up_Updates_RetrieveListOfDays">
+    <Parameter Name="UserId" Parameter="userId" Type="System.Guid" DbType="UniqueIdentifier" />
+    <Parameter Name="TheDate" Parameter="theDate" Type="System.DateTime" DbType="DateTime" />
+    <ElementType Name="up_Updates_RetrieveListOfDaysResult">
+      <Column Name="Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.up_Updates_RetrieveOld" Method="up_Updates_RetrieveOld">
+    <Parameter Name="UserId" Parameter="userId" Type="System.Guid" DbType="UniqueIdentifier" />
+    <Parameter Name="TheDate" Parameter="theDate" Type="System.DateTime" DbType="DateTime" />
+    <ElementType Name="up_Updates_RetrieveOldResult">
+      <Column Name="UpdateID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Calories" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="Time" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.up_DayReviews_Last7Days" Method="up_DayReviews_Last7Days">
+    <Parameter Name="UserId" Parameter="userId" Type="System.Guid" DbType="UniqueIdentifier" />
+    <ElementType Name="up_DayReviews_Last7DaysResult">
+      <Column Name="OverviewID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="CaloriesTotal" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Morning" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Lunch" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Afternoon" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Dinner" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Evening" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Late" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.up_DayReviews_HourReview" Method="up_DayReviews_HourReview">
+    <Parameter Name="UserId" Parameter="userId" Type="System.Guid" DbType="UniqueIdentifier" />
+    <Return Type="System.Int32" />
+  </Function>
+</Database>
